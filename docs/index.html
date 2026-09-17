@@ -1,1 +1,93 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>LuxPower Monitor</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">
+    <span class="dot"></span>
+    <h1>LuxPower Monitor</h1>
+    <span class="device" id="deviceId">—</span>
+  </div>
+  <div class="status">
+    <span id="lastUpdate" class="muted">Đang tải…</span>
+    <span id="online" class="pill">●</span>
+  </div>
+</header>
 
+<main class="grid">
+
+  <!-- Tổng quan -->
+  <section class="card hero">
+    <h2>Tổng quan</h2>
+    <div class="kpis">
+      <div class="kpi pv"><span>PV</span><strong id="pvNow">—</strong><em>W</em></div>
+      <div class="kpi load"><span>Tải</span><strong id="loadNow">—</strong><em>W</em></div>
+      <div class="kpi grid"><span>Lưới</span><strong id="gridNow">—</strong><em>W</em></div>
+      <div class="kpi batt"><span>Pin</span><strong id="socNow">—</strong><em>%</em></div>
+    </div>
+    <div class="battery-bar">
+      <div class="fill" id="socFill" style="width:0%"></div>
+      <span id="battStatus">—</span>
+    </div>
+  </section>
+
+  <!-- Biểu đồ SOC 24h -->
+  <section class="card wide">
+    <div class="card-head">
+      <h2>Pin (SOC) – 24 giờ</h2>
+      <span class="pill soft" id="socRange">—</span>
+    </div>
+    <canvas id="socChart" height="90"></canvas>
+  </section>
+
+  <!-- PV + Load -->
+  <section class="card">
+    <h2>Sản lượng hôm nay</h2>
+    <div class="stat-row"><span>PV</span><b id="pvDay">— kWh</b></div>
+    <div class="stat-row"><span>Tải</span><b id="loadDay">— kWh</b></div>
+    <div class="stat-row"><span>Lấy lưới</span><b id="fromGrid">— kWh</b></div>
+    <div class="stat-row"><span>Đẩy lưới</span><b id="toGrid">— kWh</b></div>
+    <div class="stat-row"><span>Sạc pin</span><b id="battChg">— kWh</b></div>
+    <div class="stat-row"><span>Xả pin</span><b id="battDis">— kWh</b></div>
+  </section>
+
+  <!-- Chi tiết pin -->
+  <section class="card">
+    <h2>Chi tiết pin</h2>
+    <div class="stat-row"><span>Điện áp</span><b id="battV">— V</b></div>
+    <div class="stat-row"><span>Dòng</span><b id="battA">— A</b></div>
+    <div class="stat-row"><span>Nhiệt độ</span><b id="battT">— °C</b></div>
+    <div class="stat-row"><span>Trạng thái</span><b id="battSt">—</b></div>
+  </section>
+
+  <!-- Lưới -->
+  <section class="card">
+    <h2>Lưới điện</h2>
+    <div class="stat-row"><span>Điện áp</span><b id="gridV">— V</b></div>
+    <div class="stat-row"><span>Tần số</span><b id="gridHz">— Hz</b></div>
+    <div class="stat-row"><span>Công suất</span><b id="gridW">— W</b></div>
+  </section>
+
+  <!-- ESP32 -->
+  <section class="card">
+    <h2>Thiết bị giám sát</h2>
+    <div class="stat-row"><span>Nhiệt độ chip</span><b id="espT">— °C</b></div>
+    <div class="stat-row"><span>WiFi RSSI</span><b id="espRssi">— dBm</b></div>
+    <div class="stat-row"><span>RAM trống</span><b id="espHeap">— KB</b></div>
+    <div class="stat-row"><span>Uptime</span><b id="espUp">—</b></div>
+    <div class="stat-row"><span>Trạng thái</span><b id="espSt">—</b></div>
+  </section>
+</main>
+
+<footer>© LuxPower Monitor · <span id="footTs"></span></footer>
+<script src="app.js"></script>
+</body>
+</html>
